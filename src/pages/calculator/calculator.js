@@ -1,0 +1,146 @@
+
+import axios from 'axios';
+import React, {useState } from "react";
+import NumericButtons from '../../numricButtons';
+import OperationButtons from '../../operationButtons';
+import FunctionButtons from '../../functionButtons';
+import Display from '../../display';
+
+
+ 
+export default function Calculator() {
+
+    const [content, setContent] = useState(0);
+    const [inputStack, setInputStack] = useState([]);
+  
+    const numArray = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+    const funArray = ["AC", "DEL", "UNDO", "REDO"];
+    const opArray = ["+", "-", "*", "/", "="];
+    const inputArray = [];
+  
+  
+    function clickHandle(value, type) {
+  
+      if (type === "num") {
+        value = content + value;
+        setContent(value);
+      } else if (type === "fun") {
+  
+        switch (value) {
+  
+          case "AC":
+            value = ""
+            setContent(value)
+  
+          case "DEL":
+            if (content) {
+              value = content.slice(0, -1);
+              setContent(value)
+            }
+  
+            case "UNDO":
+            value = "to be implemented"
+            setContent(value)
+  
+            case "REDO":
+              value = "to be implemented"
+            setContent(value)
+        }
+  
+  
+      }
+      else {
+        if (value == "=") {
+          inputArray.push({ type: 'number', inputNumber: content })
+          setInputStack(inputStack => [...inputStack, ...inputArray]);
+  
+          let username='nikhil'
+          let password='nikhil'
+        
+  
+          const requestOptions = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' ,  Authorization: 'Basic ' + btoa(username + ':' + password)},
+            body: JSON.stringify(inputStack)
+        };
+  
+         
+            axios.post("http://localhost:8080/SecurityDemo4/Calc",requestOptions)
+            .then(response => console.log(response.body))
+          
+        
+         
+          
+          value = "=";
+          setContent(value);
+          
+        }
+        else {
+          inputArray.push({ type: 'number', inputNumber: content })
+          inputArray.push({ type: 'operation', inputNumber: value })
+          setInputStack(inputStack => [...inputStack, ...inputArray]);
+          value = "";
+          setContent(value);
+        }
+      }
+  
+  
+    }
+  
+                  const numricElements = [];
+                  const funElements = [];
+                  const opElements = [];
+  
+                {
+                  numArray.map((num,index) => {
+                    numricElements.push(
+                      <NumericButtons numClicked={() => clickHandle(num, "num")} number={num} cssId = {"num"+index}/>
+                    );
+                  })
+                }
+  
+              {
+                funArray.map(fun => {
+                  funElements.push(
+                    <FunctionButtons funClicked={() => clickHandle(fun, "fun")} functionBtn={fun} />
+                  );
+                })
+              }
+  
+              {
+                opArray.map(op => {
+                  opElements.push(
+                    <OperationButtons opClicked={() => clickHandle(op, "op")} operationBtn={op} />
+                  );
+                })
+              }
+  
+  
+  
+  
+  
+    return (
+      <>
+        <div className='display'>
+          <Display value={content} />
+        </div>
+  
+        <div className='buttons'>
+          <div className="row ">
+            <div>
+              {funElements}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-1">
+            </div>
+            <div className="col-8">
+              {numricElements}
+            </div>
+            <div className="col-3">
+              {opElements}
+            </div>
+          </div>
+        </div>
+  </>)
+}

@@ -3,7 +3,9 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  margin-top: 50px;
+  height: 80 px;
+  width: 200px;
   pointer-events: none;
 }
 
@@ -15,7 +17,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+ 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,3 +38,60 @@
     transform: rotate(360deg);
   }
 }
+
+.calculator{
+    
+    margin-top: 100px;
+    height : 550px;
+    width: 400px;
+    background-color: rgb(34, 219, 157);
+    border-radius: 20px;
+    box-shadow: 10px 10px 5px lightblue;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin-left: 700px;
+
+  }
+
+ 
+  .display{
+   padding-top: 50px;
+   padding-bottom: 30px;
+   width: 350px;
+   padding-left: 50px;
+   
+  }
+
+  #inputBox{
+    height: 50px;
+    font-weight: bolder;
+  }
+
+  .funRow{
+    width:60px;
+  }
+
+  .funBtn{
+    
+    margin-right: 30px;
+    height: 50px;
+    width: 60px;
+   }
+  .numButton{
+    margin-top: 20px;
+    margin-right: 20px;
+    height: 50px;
+    width: 60px;
+  }
+  .opButton{
+    margin-top: 20px;
+    height: 50px;
+    width: 50px;
+  }
+
+  #num9{
+    width:210px;
+  }
+
+ 
